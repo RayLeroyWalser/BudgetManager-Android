@@ -1,21 +1,21 @@
 package com.jpintado.budgetmanager.fragments;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.jpintado.budgetmanager.R;
+import com.jpintado.budgetmanager.library.BMLibrary;
 import com.jpintado.budgetmanager.util.ConfirmPasswordEditorActionListener;
 import com.jpintado.budgetmanager.util.EmailEditorActionListener;
 import com.jpintado.budgetmanager.util.EmptyEditorActionListener;
@@ -45,6 +45,23 @@ public class RegistrationFragment extends Fragment {
         @Override
         public void onClick(View view) {
             mCallbacks.onLoginClick();
+        }
+    };
+    private Response.Listener registrationSuccessListener = new Response.Listener() {
+        @Override
+        public void onResponse(Object o) {
+            usernameEditText.setText("");
+            emailEditText.setText("");
+            passwordEditText.setText("");
+            confirmPasswordEditText.setText("");
+            mCallbacks.onRegistered();
+        }
+    };
+
+    private Response.ErrorListener registrationFailureListener = new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+            Toast.makeText(getActivity(), getString(R.string.msg_unable_register_error), Toast.LENGTH_LONG).show();
         }
     };
     //endregion
@@ -101,8 +118,11 @@ public class RegistrationFragment extends Fragment {
 
     private void formAction() {
         if (validFields()) {
-            //TODO: perform action
-            mCallbacks.onRegistered();
+            BMLibrary.credentialManager.register(usernameEditText.getText().toString(),
+                    emailEditText.getText().toString(),
+                    passwordEditText.getText().toString(),
+                    registrationSuccessListener,
+                    registrationFailureListener);
         } else {
             Toast.makeText(getActivity(), getString(R.string.txt_invalid_fields_error), Toast.LENGTH_LONG).show();
         }

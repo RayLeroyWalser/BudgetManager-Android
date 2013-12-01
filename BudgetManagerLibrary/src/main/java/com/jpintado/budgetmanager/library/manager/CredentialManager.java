@@ -14,16 +14,23 @@ public class CredentialManager {
     private static final String DEBUG_TAG = "CredentialManager";
 
     public void login(final String username, final String password, Response.Listener listener, Response.ErrorListener errorListener) {
-        try {
-            String url = UrlHelper.loginUrl();
-            Map<String, String> params = new HashMap<String, String>();
-            params.put("username", username);
-            params.put("password", password);
-            final CustomRequest jsObjRequest = new CustomRequest(Request.Method.POST, url, params, listener, errorListener);
+        String url = UrlHelper.loginUrl();
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("username", username);
+        params.put("password", password);
+        final CustomRequest jsObjRequest = new CustomRequest(Request.Method.POST, url, params, listener, errorListener);
 
-            BMLibrary.addRequest(jsObjRequest);
-        } catch (Exception ex) {
-            errorListener.onErrorResponse(new ParseError());
-        }
+        BMLibrary.addRequest(jsObjRequest);
+    }
+
+    public void register(String username, String email, String password, Response.Listener listener, Response.ErrorListener errorListener) {
+        String url = UrlHelper.registrationUrl();
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("username", username);
+        params.put("email", email);
+        params.put("password", password);
+        final CustomRequest jsObjRequest = new CustomRequest(Request.Method.POST, url, params, listener, errorListener);
+
+        BMLibrary.addRequest(jsObjRequest);
     }
 }

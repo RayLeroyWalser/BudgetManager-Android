@@ -26,5 +26,6 @@
     <string name="btn_register">Register</string>
     <string name="txt_register_new_account">Register New Account</string>
     <string name="txt_already_has_account">Already has an account?</string>
+    <string name="msg_unable_register_error">Unable to register.</string>
 
 </resources>

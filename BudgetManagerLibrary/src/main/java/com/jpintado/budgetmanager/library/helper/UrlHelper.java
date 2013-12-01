@@ -29,6 +29,10 @@ public class UrlHelper {
         return getBaseUrl() + apiPath + "/login";
     }
 
+    public static String registrationUrl() {
+        return getBaseUrl() + apiPath + "/register";
+    }
+
     public static class UrlHelperBuilder {
         private String protocol = PROTOCOL_HTTP;
         private final String host;

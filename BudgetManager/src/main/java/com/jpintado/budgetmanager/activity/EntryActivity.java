@@ -2,6 +2,7 @@ package com.jpintado.budgetmanager.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
 import com.jpintado.budgetmanager.R;
@@ -31,9 +32,7 @@ public class EntryActivity extends FragmentActivity
     @Override
     public void onRegisterClick() {
         RegistrationFragment registrationFragment = RegistrationFragment.newInstance();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.entry_container_linearLayout, registrationFragment)
-                .commit();
+        navigateTo(registrationFragment);
     }
 
     @Override
@@ -45,8 +44,12 @@ public class EntryActivity extends FragmentActivity
     @Override
     public void onLoginClick() {
         LoginFragment loginFragment = LoginFragment.newInstance();
+        navigateTo(loginFragment);
+    }
+
+    private void navigateTo(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.entry_container_linearLayout, loginFragment)
+                .replace(R.id.entry_container_linearLayout, fragment)
                 .commit();
     }
 }
