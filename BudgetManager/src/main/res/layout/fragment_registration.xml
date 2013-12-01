@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp">
+    <EditText
+        android:id="@+id/registration_username_editText"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="@string/hint_username"
+        android:inputType="textNoSuggestions"
+        android:singleLine="true"
+        android:nextFocusDown="@+id/registration_email_editText" />
+    <EditText
+        android:id="@+id/registration_email_editText"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="@string/hint_email"
+        android:inputType="textEmailAddress"
+        android:singleLine="true"
+        android:nextFocusDown="@+id/registration_password_editText" />
+    <EditText
+        android:id="@+id/registration_password_editText"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="@string/hint_password"
+        android:inputType="textPassword"
+        android:singleLine="true"
+        android:nextFocusDown="@+id/registration_confirm_password_editText" />
+    <EditText
+        android:id="@+id/registration_confirm_password_editText"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="@string/hint_confirm_password"
+        android:inputType="textPassword"
+        android:imeOptions="actionSend" />
+    <Button
+        android:id="@+id/registration_register_button"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:text="@string/btn_register" />
+    <TextView
+        android:id="@+id/registration_already_has_account_textView"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/txt_already_has_account"
+        android:textColor="@drawable/selector_gray_link" />
+</LinearLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- General -->
+    <string name="app_name">Budget Manager</string>
+
+    <!-- Error messages -->
+    <string name="txt_empty_field_error">This field can\'t be empty</string>
+    <string name="txt_password_mismatch_error">Password mismatch</string>
+    <string name="txt_invalid_email_error">Invalid email</string>
+    <string name="txt_invalid_fields_error">Invalid Fields</string>
+
+    <!-- Main/Navigation Screen -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_settings">Settings</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Login/Registration Screens -->
+    <string name="hint_username">Username</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_register">Register</string>
+    <string name="txt_register_new_account">Register New Account</string>
+    <string name="txt_already_has_account">Already has an account?</string>
+
+</resources>
