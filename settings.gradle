@@ -1,1 +1,1 @@
-include ':BudgetManager'
+include ':BudgetManager', ':BudgetManagerLibrary'
