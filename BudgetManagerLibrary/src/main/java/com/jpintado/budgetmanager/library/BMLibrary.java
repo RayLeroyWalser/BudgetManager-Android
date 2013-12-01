@@ -7,6 +7,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.jpintado.budgetmanager.library.helper.UrlHelper;
 import com.jpintado.budgetmanager.library.manager.CredentialManager;
+import com.jpintado.budgetmanager.library.provider.InstitutionProvider;
 
 public class BMLibrary {
 
@@ -16,11 +17,13 @@ public class BMLibrary {
     private static final String BM_OFX_PREFIX = "/ofx";
 
     public static CredentialManager credentialManager;
-    static RequestQueue queue;
-    private static UrlHelper urlHelper;
+    public static InstitutionProvider institutionProvider;
+    public static UrlHelper urlHelper;
+    private static RequestQueue queue;
 
     public BMLibrary(Application application) {
         credentialManager = new CredentialManager();
+        institutionProvider = new InstitutionProvider();
         urlHelper = new UrlHelper.UrlHelperBuilder(BM_HOST)
                 .setProtocol(UrlHelper.PROTOCOL_HTTP)
                 .setPort(BM_PORT)

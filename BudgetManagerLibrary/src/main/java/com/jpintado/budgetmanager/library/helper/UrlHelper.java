@@ -4,7 +4,6 @@ public class UrlHelper {
 
     public static final String PROTOCOL_HTTP = "http";
     public static final String PROTOCOL_HTTPS = "https";
-    private static String API_VERSION = "/api/1.0";
     private static String host;
     private static String protocol;
     private static String port;
