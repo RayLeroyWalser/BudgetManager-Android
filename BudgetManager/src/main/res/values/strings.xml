@@ -9,6 +9,7 @@
     <string name="txt_password_mismatch_error">Password mismatch</string>
     <string name="txt_invalid_email_error">Invalid email</string>
     <string name="txt_invalid_fields_error">Invalid Fields</string>
+    <string name="msg_unable_login_error">Unable to Login. Please, check your credentials</string>
 
     <!-- Main/Navigation Screen -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
