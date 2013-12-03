@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +20,13 @@ import com.jpintado.budgetmanager.R;
 import com.jpintado.budgetmanager.library.BMLibrary;
 import com.jpintado.budgetmanager.util.EmptyEditorActionListener;
 
+import org.json.JSONObject;
+
 public class LoginFragment extends Fragment {
 
     //region Variables
     private LoginFragmentCallbacks mCallbacks;
-    private EditText usernameEditText;
+    private EditText emailEditText;
     private EditText passwordEditText;
     private Button loginButton;
     private TextView registerAccountTextView;
@@ -42,10 +45,10 @@ public class LoginFragment extends Fragment {
             mCallbacks.onRegisterClick();
         }
     };
-    private Response.Listener loginSuccessListener = new Response.Listener() {
+    private Response.Listener<String> loginSuccessListener = new Response.Listener<String>() {
         @Override
-        public void onResponse(Object o) {
-            usernameEditText.setText("");
+        public void onResponse(String response) {
+            emailEditText.setText("");
             passwordEditText.setText("");
             mCallbacks.onLoggedIn();
         }
@@ -87,7 +90,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void bindUIElements(View view) {
-        usernameEditText        = (EditText) view.findViewById(R.id.login_username_editText);
+        emailEditText = (EditText) view.findViewById(R.id.login_email_editText);
         passwordEditText        = (EditText) view.findViewById(R.id.login_password_editText);
         loginButton             = (Button)   view.findViewById(R.id.login_button);
         registerAccountTextView = (TextView) view.findViewById(R.id.login_register_account_textView);
@@ -97,7 +100,7 @@ public class LoginFragment extends Fragment {
         loginButton.setOnClickListener(loginButtonClickListener);
         registerAccountTextView.setOnClickListener(registerAccountClickListener);
 
-        usernameEditText.setOnEditorActionListener(new EmptyEditorActionListener(getActivity(), usernameEditText));
+        emailEditText.setOnEditorActionListener(new EmptyEditorActionListener(getActivity(), emailEditText));
         passwordEditText.setOnEditorActionListener(new CustomEmptyEditorActionListener(getActivity(), passwordEditText));
     }
 
@@ -105,7 +108,7 @@ public class LoginFragment extends Fragment {
     private void formAction() {
         if (validFields()) {
             BMLibrary.credentialManager.login(
-                    usernameEditText.getText().toString(),
+                    emailEditText.getText().toString(),
                     passwordEditText.getText().toString(),
                     loginSuccessListener,
                     loginFailureListener);
@@ -115,7 +118,7 @@ public class LoginFragment extends Fragment {
     }
 
     private boolean validFields() {
-        return !usernameEditText.getText().toString().trim().equals("")
+        return !emailEditText.getText().toString().trim().equals("")
                 && !passwordEditText.getText().toString().trim().equals("");
     }
 

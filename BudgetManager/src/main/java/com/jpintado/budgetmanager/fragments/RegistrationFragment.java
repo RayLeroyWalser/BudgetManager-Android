@@ -24,12 +24,10 @@ public class RegistrationFragment extends Fragment {
 
     //region Variables
     private RegistrationFragmentInterface mCallbacks;
-    private EditText usernameEditText;
     private EditText emailEditText;
     private EditText passwordEditText;
     private EditText confirmPasswordEditText;
     private Button registerButton;
-    private TextView registerAccountTextView;
     private TextView alreadyHasAccountTextView;
     //endregion
 
@@ -50,7 +48,6 @@ public class RegistrationFragment extends Fragment {
     private Response.Listener registrationSuccessListener = new Response.Listener() {
         @Override
         public void onResponse(Object o) {
-            usernameEditText.setText("");
             emailEditText.setText("");
             passwordEditText.setText("");
             confirmPasswordEditText.setText("");
@@ -98,7 +95,6 @@ public class RegistrationFragment extends Fragment {
     }
 
     private void bindUIElements(View view) {
-        usernameEditText          = (EditText) view.findViewById(R.id.registration_username_editText);
         emailEditText             = (EditText) view.findViewById(R.id.registration_email_editText);
         passwordEditText          = (EditText) view.findViewById(R.id.registration_password_editText);
         confirmPasswordEditText   = (EditText) view.findViewById(R.id.registration_confirm_password_editText);
@@ -110,7 +106,6 @@ public class RegistrationFragment extends Fragment {
         registerButton.setOnClickListener(registerButtonClickListener);
         alreadyHasAccountTextView.setOnClickListener(alreadyHasAccountClickListener);
 
-        usernameEditText.setOnEditorActionListener(new EmptyEditorActionListener(getActivity(), usernameEditText));
         emailEditText.setOnEditorActionListener(new EmailEditorActionListener(getActivity(), emailEditText));
         passwordEditText.setOnEditorActionListener(new EmptyEditorActionListener(getActivity(), passwordEditText));
         confirmPasswordEditText.setOnEditorActionListener(new CustomConfirmPasswordEditorActionListener(getActivity(), confirmPasswordEditText, passwordEditText));
@@ -118,8 +113,7 @@ public class RegistrationFragment extends Fragment {
 
     private void formAction() {
         if (validFields()) {
-            BMLibrary.credentialManager.register(usernameEditText.getText().toString(),
-                    emailEditText.getText().toString(),
+            BMLibrary.credentialManager.register(emailEditText.getText().toString(),
                     passwordEditText.getText().toString(),
                     registrationSuccessListener,
                     registrationFailureListener);
@@ -129,8 +123,7 @@ public class RegistrationFragment extends Fragment {
     }
 
     public boolean validFields() {
-        return !usernameEditText.getText().toString().trim().equals("")
-                && !emailEditText.getText().toString().trim().equals("")
+        return !emailEditText.getText().toString().trim().equals("")
                 && !passwordEditText.getText().toString().trim().equals("")
                 && !confirmPasswordEditText.getText().toString().trim().equals("")
                 && confirmPasswordEditText.getText().toString().equals(passwordEditText.getText().toString());

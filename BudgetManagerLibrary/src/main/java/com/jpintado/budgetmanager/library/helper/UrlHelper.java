@@ -4,31 +4,35 @@ public class UrlHelper {
 
     public static final String PROTOCOL_HTTP = "http";
     public static final String PROTOCOL_HTTPS = "https";
-    private static String host;
-    private static String protocol;
-    private static String port;
-    private static String apiPath;
-    private static String ofxPath;
+    private String host;
+    private String protocol;
+    private String port;
+    private String apiPath;
+    private String ofxPath;
 
     public UrlHelper(UrlHelperBuilder urlHelperBuilder) {
-        this.protocol = urlHelperBuilder.protocol;
-        this.host     = urlHelperBuilder.host;
-        this.port     = urlHelperBuilder.port;
-        this.apiPath  = urlHelperBuilder.apiPath;
-        this.ofxPath  = urlHelperBuilder.ofxPath;
+        protocol = urlHelperBuilder.protocol;
+        host     = urlHelperBuilder.host;
+        port     = urlHelperBuilder.port;
+        apiPath  = urlHelperBuilder.apiPath;
+        ofxPath  = urlHelperBuilder.ofxPath;
     }
 
-    private static String getBaseUrl() {
+    private String getBaseUrl() {
         return protocol + "://"
                 + host
                 + (port != null && !port.equals("") ? ":" + port : "");
     }
 
-    public static String loginUrl() {
+    public String getChallengeUrl(String email) {
+        return getBaseUrl() + apiPath + "/challenge?email=" + email;
+    }
+
+    public String getLoginUrl() {
         return getBaseUrl() + apiPath + "/login";
     }
 
-    public static String registrationUrl() {
+    public String getRegistrationUrl() {
         return getBaseUrl() + apiPath + "/register";
     }
 
