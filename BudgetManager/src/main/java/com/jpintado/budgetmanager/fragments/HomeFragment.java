@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "bundle_position";
+
     private AccountListResponseHandler accountListResponseHandler = new AccountListResponseHandler()
     {
         @Override

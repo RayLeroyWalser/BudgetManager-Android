@@ -9,13 +9,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 
+import com.jpintado.budgetmanager.fragments.InstitutionAddProcessFragment;
 import com.jpintado.budgetmanager.fragments.NavigationDrawerFragment;
 import com.jpintado.budgetmanager.R;
 import com.jpintado.budgetmanager.fragments.BudgetFragment;
 import com.jpintado.budgetmanager.fragments.HomeFragment;
+import com.jpintado.budgetmanager.fragments.SettingsFragment;
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks,
+                   InstitutionAddProcessFragment.InstitutionAddProcessFragmentCallbacks {
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private String[] mPlanetTitles;
@@ -58,7 +61,23 @@ public class MainActivity extends ActionBarActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_add_institution:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, InstitutionAddProcessFragment.newInstance())
+                        .addToBackStack(null)
+                        .commit();
+                return true;
+            case R.id.action_add_account:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, InstitutionAddProcessFragment.newInstance())
+                        .addToBackStack(null)
+                        .commit();
+                return true;
             case R.id.action_settings:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, SettingsFragment.newInstance())
+                        .addToBackStack(null)
+                        .commit();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -87,5 +106,12 @@ public class MainActivity extends ActionBarActivity
                 break;
         }
         return fragment;
+    }
+
+    @Override
+    public void onInstitutionAdded(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction()
+                .remove(fragment)
+                .commit();
     }
 }

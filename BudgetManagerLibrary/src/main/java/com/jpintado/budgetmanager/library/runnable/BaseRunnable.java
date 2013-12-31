@@ -6,15 +6,7 @@ import com.jpintado.budgetmanager.library.model.Account;
 import java.util.ArrayList;
 
 public class BaseRunnable {
-    protected void callbackSuccessResponse(String message, BaseResponseHandler responseHandler) {
-        if (responseHandler != null)
-        {
-            responseHandler.sendSuccessMessage(message);
-            responseHandler.sendFinishMessage();
-        }
-    }
-
-    protected void callbackSuccessResponse(ArrayList<Account> message, BaseResponseHandler responseHandler) {
+    protected void callbackSuccessResponse(Object message, BaseResponseHandler responseHandler) {
         if (responseHandler != null)
         {
             responseHandler.sendSuccessMessage(message);

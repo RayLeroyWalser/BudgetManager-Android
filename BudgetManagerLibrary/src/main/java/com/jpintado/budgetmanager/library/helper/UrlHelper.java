@@ -40,6 +40,18 @@ public class UrlHelper {
         return getBaseUrl() + ofxPath + "/account/list";
     }
 
+    public String getInstitutionSearchUrl() {
+        return getBaseUrl() + ofxPath + "/institution/search";
+    }
+
+    public String getInstitutionInfoUrl() {
+        return getBaseUrl() + ofxPath + "/institution/info";
+    }
+
+    public String getInstitutionCredentialsUrl() {
+        return getBaseUrl() + ofxPath + "/institution/credentials";
+    }
+
     public static class UrlHelperBuilder {
         private String protocol = PROTOCOL_HTTP;
         private final String host;

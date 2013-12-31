@@ -22,8 +22,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
-public abstract class BaseResponseHandler
-{
+public abstract class BaseResponseHandler {
     //region Constants
     protected static final int SUCCESS_MESSAGE  = 0;
     protected static final int FAILURE_MESSAGE  = 1;
@@ -37,11 +36,9 @@ public abstract class BaseResponseHandler
     //endregion
 
     //region Constructor
-    public BaseResponseHandler()
-    {
+    public BaseResponseHandler() {
         // Set up a handler to post events back to the correct thread if possible
-        if (Looper.myLooper() != null)
-        {
+        if (Looper.myLooper() != null) {
             handler = new Handler()
             {
                 @Override
@@ -54,40 +51,32 @@ public abstract class BaseResponseHandler
     }
     //endregion
 
-    public void sendStartMessage()
-    {
+    public void sendStartMessage() {
         sendMessage(obtainMessage(START_MESSAGE, null));
     }
 
-    public void sendFinishMessage()
-    {
+    public void sendFinishMessage() {
         sendMessage(obtainMessage(FINISH_MESSAGE, null));
     }
 
-    public void sendFailureMessage(Object message)
-    {
+    public void sendFailureMessage(Object message) {
         sendMessage(obtainMessage(FAILURE_MESSAGE, message));
     }
 
-    public void sendProgressMessage(Object message)
-    {
+    public void sendProgressMessage(Object message) {
         sendMessage(obtainMessage(PROGRESS_MESSAGE, message));
     }
 
-    public void sendSuccessMessage(Object response)
-    {
+    public void sendSuccessMessage(Object response) {
         sendMessage(obtainMessage(SUCCESS_MESSAGE, response));
     }
 
-    protected Message obtainMessage(int responseMessage, Object response)
-    {
+    protected Message obtainMessage(int responseMessage, Object response) {
         Message msg;
-        if(handler != null)
-        {
+        if(handler != null) {
             msg = this.handler.obtainMessage(responseMessage, response);
         }
-        else
-        {
+        else {
             msg = new Message();
             msg.what = responseMessage;
             msg.obj = response;
@@ -95,10 +84,8 @@ public abstract class BaseResponseHandler
         return msg;
     }
 
-    protected void handleMessage(Message msg)
-    {
-        switch(msg.what)
-        {
+    protected void handleMessage(Message msg) {
+        switch(msg.what) {
             case SUCCESS_MESSAGE:
                 handleSuccessMessage(msg.obj);
                 break;
@@ -120,8 +107,7 @@ public abstract class BaseResponseHandler
         }
     }
 
-    private void sendMessage(Message msg)
-    {
+    private void sendMessage(Message msg) {
         if(handler != null)
             handler.sendMessage(msg);
     }
