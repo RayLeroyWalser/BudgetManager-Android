@@ -25,15 +25,19 @@ public class UrlHelper {
     }
 
     public String getChallengeUrl(String email) {
-        return getBaseUrl() + apiPath + "/challenge?email=" + email;
+        return getBaseUrl() + apiPath + "/challenge?username=" + email;
     }
 
     public String getLoginUrl() {
-        return getBaseUrl() + apiPath + "/login";
+        return getBaseUrl() + apiPath + "/challenge";
     }
 
     public String getRegistrationUrl() {
         return getBaseUrl() + apiPath + "/register";
+    }
+
+    public String getAccountListUrl() {
+        return getBaseUrl() + ofxPath + "/account/list";
     }
 
     public static class UrlHelperBuilder {

@@ -1,81 +1,59 @@
 package com.jpintado.budgetmanager.library.runnable;
 
  import android.util.Base64;
-import android.util.Log;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.RequestFuture;
 import com.jpintado.budgetmanager.library.BMLibrary;
-import com.jpintado.budgetmanager.library.crypto.AESCBC;
-import com.jpintado.budgetmanager.library.request.CustomRequest;
+ import com.jpintado.budgetmanager.library.controller.ConnectionController;
+ import com.jpintado.budgetmanager.library.crypto.AESCBC;
+import com.jpintado.budgetmanager.library.handler.StringResponseHandler;
+ import com.jpintado.budgetmanager.library.util.CustomHttpResponse;
 
-import org.json.JSONObject;
+ import org.apache.http.NameValuePair;
+ import org.apache.http.message.BasicNameValuePair;
+ import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
+ import java.util.ArrayList;
 
-public class LoginRunnable implements Runnable {
+public class LoginRunnable extends BaseRunnable implements Runnable {
 
     private static final String DEBUG_TAG = "LoginRunnable";
-    private final String email;
+    private final String username;
     private final String password;
-    private final Response.Listener listener;
-    private final Response.ErrorListener errorListener;
+    private final StringResponseHandler responseHandler;
 
-    public LoginRunnable(String email, String password, Response.Listener listener, Response.ErrorListener errorListener) {
-        this.email = email;
+    public LoginRunnable(String username, String password, StringResponseHandler responseHandler) {
+        this.username = username;
         this.password = password;
-        this.listener = listener;
-        this.errorListener = errorListener;
+        this.responseHandler = responseHandler;
     }
 
     @Override
     public void run() {
         try {
-            RequestFuture<String> requestFuture = RequestFuture.newFuture();
-            CustomRequest customRequest = new CustomRequest(
-                    Request.Method.GET,
-                    BMLibrary.urlHelper.getChallengeUrl(email),
-                    null,
-                    requestFuture,
-                    requestFuture);
-            BMLibrary.addRequest(customRequest);
+            responseHandler.sendStartMessage();
+            CustomHttpResponse response = ConnectionController.executeHttpRequest(ConnectionController.METHOD_GET, BMLibrary.urlHelper.getChallengeUrl(username), null);
 
-            JSONObject responseJSON = new JSONObject(requestFuture.get());
+            JSONObject responseJSON = new JSONObject(response.getData());
             String encryptedChallenge = responseJSON.getString("encrypted_challenge");
             String decryptedChallenge = AESCBC.decrypt(password, encryptedChallenge);
             String encodedDecryptedChallenge = Base64.encodeToString(decryptedChallenge.getBytes(), Base64.DEFAULT);
 
-            Map<String, String> params = new HashMap<String, String>();
-            params.put("email", email);
-            params.put("decrypted_challenge", encodedDecryptedChallenge);
+            ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("username", username));
+            params.add(new BasicNameValuePair("decrypted_challenge", encodedDecryptedChallenge));
 
-            customRequest = new CustomRequest(
-                    Request.Method.POST,
-                    BMLibrary.urlHelper.getLoginUrl(),
-                    params,
-                    listener,
-                    errorListener) {
-                @Override
-                protected void deliverResponse(String response) {
-                    try {
-                        JSONObject responseJSON = new JSONObject(response);
-                        BMLibrary.credentialManager.setRsaPublic(responseJSON.getString("rsa_public"));
-                        super.deliverResponse(response);
-                    } catch (Exception ex) {
-                        Log.e(DEBUG_TAG, ex.getMessage());
-                        errorListener.onErrorResponse(new VolleyError());
-                    }
-                }
-            };
+            response = ConnectionController.executeHttpRequest(ConnectionController.METHOD_POST, BMLibrary.urlHelper.getLoginUrl(), params);
 
-            BMLibrary.addRequest(customRequest);
-
+            if (response.getResponseCode() == 200)
+            {
+                responseJSON = new JSONObject(response.getData());
+                BMLibrary.userInfoProvider.setRsaPublic(responseJSON.getString("rsa_public"));
+                callbackSuccessResponse("", responseHandler);
+            }
+            else
+                callbackFailureResponse("", responseHandler);
         } catch (Exception ex) {
-            Log.e(DEBUG_TAG, ex.getMessage());
-            errorListener.onErrorResponse(new VolleyError("Unable to login"));
+            callbackFailureResponse(ex.getMessage(), responseHandler);
         }
     }
 }

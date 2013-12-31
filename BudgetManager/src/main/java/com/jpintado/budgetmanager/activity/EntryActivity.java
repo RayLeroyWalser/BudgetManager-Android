@@ -25,6 +25,9 @@ public class EntryActivity extends FragmentActivity
 
     @Override
     public void onLoggedIn() {
+        LoginFragment loginFragment = LoginFragment.newInstance();
+        navigateTo(loginFragment);
+
         Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(mainActivityIntent);
     }

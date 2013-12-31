@@ -12,10 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.jpintado.budgetmanager.R;
 import com.jpintado.budgetmanager.library.BMLibrary;
+import com.jpintado.budgetmanager.library.handler.StringResponseHandler;
 import com.jpintado.budgetmanager.util.ConfirmPasswordEditorActionListener;
 import com.jpintado.budgetmanager.util.EmailEditorActionListener;
 import com.jpintado.budgetmanager.util.EmptyEditorActionListener;
@@ -24,6 +23,7 @@ public class RegistrationFragment extends Fragment {
 
     //region Variables
     private RegistrationFragmentInterface mCallbacks;
+    private EditText usernameEditText;
     private EditText emailEditText;
     private EditText passwordEditText;
     private EditText confirmPasswordEditText;
@@ -45,20 +45,29 @@ public class RegistrationFragment extends Fragment {
             mCallbacks.onLoginClick();
         }
     };
-    private Response.Listener registrationSuccessListener = new Response.Listener() {
+
+    private StringResponseHandler registrationResponseHandler = new StringResponseHandler() {
         @Override
-        public void onResponse(Object o) {
-            emailEditText.setText("");
-            passwordEditText.setText("");
-            confirmPasswordEditText.setText("");
+        public void onStart() {
+            super.onStart();
+        }
+
+        @Override
+        public void onSuccess(String response) {
+            super.onSuccess(response);
+            clearFields();
             mCallbacks.onRegistered();
         }
-    };
 
-    private Response.ErrorListener registrationFailureListener = new Response.ErrorListener() {
         @Override
-        public void onErrorResponse(VolleyError volleyError) {
+        public void onFailure(String message) {
+            super.onFailure(message);
             Toast.makeText(getActivity(), getString(R.string.msg_unable_register_error), Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onFinish() {
+            super.onFinish();
         }
     };
     //endregion
@@ -95,6 +104,7 @@ public class RegistrationFragment extends Fragment {
     }
 
     private void bindUIElements(View view) {
+        usernameEditText          = (EditText) view.findViewById(R.id.registration_username_editText);
         emailEditText             = (EditText) view.findViewById(R.id.registration_email_editText);
         passwordEditText          = (EditText) view.findViewById(R.id.registration_password_editText);
         confirmPasswordEditText   = (EditText) view.findViewById(R.id.registration_confirm_password_editText);
@@ -106,6 +116,7 @@ public class RegistrationFragment extends Fragment {
         registerButton.setOnClickListener(registerButtonClickListener);
         alreadyHasAccountTextView.setOnClickListener(alreadyHasAccountClickListener);
 
+        usernameEditText.setOnEditorActionListener(new EmailEditorActionListener(getActivity(), usernameEditText));
         emailEditText.setOnEditorActionListener(new EmailEditorActionListener(getActivity(), emailEditText));
         passwordEditText.setOnEditorActionListener(new EmptyEditorActionListener(getActivity(), passwordEditText));
         confirmPasswordEditText.setOnEditorActionListener(new CustomConfirmPasswordEditorActionListener(getActivity(), confirmPasswordEditText, passwordEditText));
@@ -113,20 +124,29 @@ public class RegistrationFragment extends Fragment {
 
     private void formAction() {
         if (validFields()) {
-            BMLibrary.credentialManager.register(emailEditText.getText().toString(),
+            BMLibrary.credentialManager.register(
+                    usernameEditText.getText().toString(),
+                    emailEditText.getText().toString(),
                     passwordEditText.getText().toString(),
-                    registrationSuccessListener,
-                    registrationFailureListener);
+                    registrationResponseHandler);
         } else {
             Toast.makeText(getActivity(), getString(R.string.txt_invalid_fields_error), Toast.LENGTH_LONG).show();
         }
     }
 
     public boolean validFields() {
-        return !emailEditText.getText().toString().trim().equals("")
+        return !usernameEditText.getText().toString().trim().equals("")
+                && !emailEditText.getText().toString().trim().equals("")
                 && !passwordEditText.getText().toString().trim().equals("")
                 && !confirmPasswordEditText.getText().toString().trim().equals("")
                 && confirmPasswordEditText.getText().toString().equals(passwordEditText.getText().toString());
+    }
+
+    private void clearFields() {
+        usernameEditText.setText("");
+        emailEditText.setText("");
+        passwordEditText.setText("");
+        confirmPasswordEditText.setText("");
     }
 
     public static interface RegistrationFragmentInterface {
@@ -134,6 +154,7 @@ public class RegistrationFragment extends Fragment {
         void onLoginClick();
 
     }
+
     private class CustomConfirmPasswordEditorActionListener extends ConfirmPasswordEditorActionListener implements TextView.OnEditorActionListener {
 
         public CustomConfirmPasswordEditorActionListener(Activity activity, EditText confirmPasswordEditText, EditText passwordEditText) {
@@ -146,6 +167,5 @@ public class RegistrationFragment extends Fragment {
             }
             return false;
         }
-
     }
 }

@@ -7,25 +7,37 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.jpintado.budgetmanager.activity.MainActivity;
 import com.jpintado.budgetmanager.R;
 import com.jpintado.budgetmanager.library.BMLibrary;
+import com.jpintado.budgetmanager.library.handler.AccountListResponseHandler;
+import com.jpintado.budgetmanager.library.model.Account;
+
+import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "bundle_position";
-    private Response.Listener institutionListener = new Response.Listener() {
+    private AccountListResponseHandler accountListResponseHandler = new AccountListResponseHandler()
+    {
         @Override
-        public void onResponse(Object o) {
-
+        public void onStart() {
+            super.onStart();
         }
-    };
-    private Response.ErrorListener institutionFailureListener = new Response.ErrorListener() {
-        @Override
-        public void onErrorResponse(VolleyError volleyError) {
 
+        @Override
+        public void onSuccess(ArrayList<Account> response) {
+            super.onSuccess(response);
+        }
+
+        @Override
+        public void onFailure(String message) {
+            super.onFailure(message);
+        }
+
+        @Override
+        public void onFinish() {
+            super.onFinish();
         }
     };
 
@@ -58,6 +70,6 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        BMLibrary.institutionProvider.getAccounts(institutionListener, institutionFailureListener);
+        BMLibrary.institutionProvider.getAccountList(accountListResponseHandler);
     }
 }

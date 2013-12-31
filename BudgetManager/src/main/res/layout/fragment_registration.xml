@@ -7,6 +7,14 @@
     android:layout_height="match_parent"
     android:layout_margin="16dp">
     <EditText
+        android:id="@+id/registration_username_editText"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="@string/hint_username"
+        android:inputType="textNoSuggestions"
+        android:singleLine="true"
+        android:nextFocusDown="@+id/registration_password_editText" />
+    <EditText
         android:id="@+id/registration_email_editText"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"

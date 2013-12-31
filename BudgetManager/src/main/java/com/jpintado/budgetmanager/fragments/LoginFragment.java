@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,19 +13,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.jpintado.budgetmanager.R;
 import com.jpintado.budgetmanager.library.BMLibrary;
+import com.jpintado.budgetmanager.library.handler.StringResponseHandler;
 import com.jpintado.budgetmanager.util.EmptyEditorActionListener;
-
-import org.json.JSONObject;
 
 public class LoginFragment extends Fragment {
 
     //region Variables
     private LoginFragmentCallbacks mCallbacks;
-    private EditText emailEditText;
+    private EditText usernameEditText;
     private EditText passwordEditText;
     private Button loginButton;
     private TextView registerAccountTextView;
@@ -39,25 +35,36 @@ public class LoginFragment extends Fragment {
             formAction();
         }
     };
+
     private View.OnClickListener registerAccountClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             mCallbacks.onRegisterClick();
         }
     };
-    private Response.Listener<String> loginSuccessListener = new Response.Listener<String>() {
+
+    private StringResponseHandler loginResponseHandler = new StringResponseHandler() {
         @Override
-        public void onResponse(String response) {
-            emailEditText.setText("");
-            passwordEditText.setText("");
+        public void onStart() {
+            super.onStart();
+        }
+
+        @Override
+        public void onSuccess(String response) {
+            super.onSuccess(response);
+            clearFields();
             mCallbacks.onLoggedIn();
         }
-    };
 
-    private Response.ErrorListener loginFailureListener = new Response.ErrorListener() {
         @Override
-        public void onErrorResponse(VolleyError volleyError) {
+        public void onFailure(String message) {
+            super.onFailure(message);
             Toast.makeText(getActivity(), getString(R.string.msg_unable_login_error), Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onFinish() {
+            super.onFinish();
         }
     };
     //endregion
@@ -90,7 +97,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void bindUIElements(View view) {
-        emailEditText = (EditText) view.findViewById(R.id.login_email_editText);
+        usernameEditText        = (EditText) view.findViewById(R.id.login_email_editText);
         passwordEditText        = (EditText) view.findViewById(R.id.login_password_editText);
         loginButton             = (Button)   view.findViewById(R.id.login_button);
         registerAccountTextView = (TextView) view.findViewById(R.id.login_register_account_textView);
@@ -100,7 +107,7 @@ public class LoginFragment extends Fragment {
         loginButton.setOnClickListener(loginButtonClickListener);
         registerAccountTextView.setOnClickListener(registerAccountClickListener);
 
-        emailEditText.setOnEditorActionListener(new EmptyEditorActionListener(getActivity(), emailEditText));
+        usernameEditText.setOnEditorActionListener(new EmptyEditorActionListener(getActivity(), usernameEditText));
         passwordEditText.setOnEditorActionListener(new CustomEmptyEditorActionListener(getActivity(), passwordEditText));
     }
 
@@ -108,18 +115,22 @@ public class LoginFragment extends Fragment {
     private void formAction() {
         if (validFields()) {
             BMLibrary.credentialManager.login(
-                    emailEditText.getText().toString(),
+                    usernameEditText.getText().toString(),
                     passwordEditText.getText().toString(),
-                    loginSuccessListener,
-                    loginFailureListener);
+                    loginResponseHandler);
         } else {
             Toast.makeText(getActivity(), getString(R.string.txt_invalid_fields_error), Toast.LENGTH_LONG).show();
         }
     }
 
     private boolean validFields() {
-        return !emailEditText.getText().toString().trim().equals("")
+        return !usernameEditText.getText().toString().trim().equals("")
                 && !passwordEditText.getText().toString().trim().equals("");
+    }
+
+    private void clearFields() {
+        usernameEditText.setText("");
+        passwordEditText.setText("");
     }
 
     public static interface LoginFragmentCallbacks {

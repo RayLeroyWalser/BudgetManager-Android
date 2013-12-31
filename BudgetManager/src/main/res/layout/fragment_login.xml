@@ -10,8 +10,8 @@
         android:id="@+id/login_email_editText"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:hint="@string/hint_email"
-        android:inputType="textEmailAddress"
+        android:hint="@string/hint_username"
+        android:inputType="textNoSuggestions"
         android:singleLine="true"
         android:nextFocusDown="@+id/login_password_editText" />
     <EditText

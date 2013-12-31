@@ -1,11 +1,12 @@
 package com.jpintado.budgetmanager.library.provider;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
+import com.jpintado.budgetmanager.library.BMLibrary;
+import com.jpintado.budgetmanager.library.handler.BaseResponseHandler;
+import com.jpintado.budgetmanager.library.runnable.GetAccountListRunnable;
 
 public class InstitutionProvider {
 
-    public void getAccounts(Response.Listener listener, Response.ErrorListener errorListener) {
-        errorListener.onErrorResponse(new VolleyError("Not Implemented"));
+    public void getAccountList(BaseResponseHandler responseHandler) {
+        BMLibrary.executeRunnable(new GetAccountListRunnable(responseHandler));
     }
 }
