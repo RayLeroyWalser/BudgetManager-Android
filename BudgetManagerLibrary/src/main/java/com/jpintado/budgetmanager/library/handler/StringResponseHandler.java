@@ -6,14 +6,12 @@ public class StringResponseHandler extends BaseResponseHandler
     public void onProgressMessage(Integer response) {}
 
     @Override
-    public void onProgressUpdate(Object statusCode)
-    {
+    public void onProgressUpdate(Object statusCode) {
         onProgressMessage((Integer) statusCode);
     }
 
     @Override
-    protected void handleSuccessMessage(Object response)
-    {
+    protected void handleSuccessMessage(Object response) {
         onSuccess((String) response);
     }
 }

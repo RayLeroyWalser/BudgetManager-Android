@@ -11,6 +11,6 @@ public class BudgetManagerApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        bmLibrary = new BMLibrary(this);
+        bmLibrary = new BMLibrary();
     }
 }

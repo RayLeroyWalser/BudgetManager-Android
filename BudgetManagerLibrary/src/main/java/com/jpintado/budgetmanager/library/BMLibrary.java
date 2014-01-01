@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 public class BMLibrary {
 
-    private static final String BM_HOST = "172.16.1.89";
+    private static final String BM_HOST = "192.168.1.126";
     private static final String BM_PORT = "8001";
     private static final String BM_API_PREFIX = "/api";
     private static final String BM_OFX_PREFIX = "/ofx";
@@ -30,7 +30,7 @@ public class BMLibrary {
     public static UrlHelper urlHelper;
     private static ExecutorService executorService;
 
-    public BMLibrary(Application application) {
+    public BMLibrary() {
         credentialManager = new CredentialManager();
         userInfoProvider = new UserInfoProvider();
         institutionProvider = new InstitutionProvider();

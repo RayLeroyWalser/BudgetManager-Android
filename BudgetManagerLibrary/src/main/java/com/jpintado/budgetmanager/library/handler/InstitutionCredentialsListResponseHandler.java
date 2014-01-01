@@ -1,11 +1,11 @@
 package com.jpintado.budgetmanager.library.handler;
 
-import com.jpintado.budgetmanager.library.model.Account;
+import com.jpintado.budgetmanager.library.model.InstitutionCredentials;
 
 import java.util.ArrayList;
 
-public class AccountListResponseHandler extends BaseResponseHandler {
-    public void onSuccess(ArrayList<Account> response) {}
+public class InstitutionCredentialsListResponseHandler extends BaseResponseHandler {
+    public void onSuccess(ArrayList<InstitutionCredentials> response) {}
     public void onProgressMessage(Integer response) {}
 
     @Override
@@ -15,6 +15,5 @@ public class AccountListResponseHandler extends BaseResponseHandler {
 
     @Override
     protected void handleSuccessMessage(Object response) {
-        onSuccess((ArrayList<Account>) response);
-    }
-}
+        onSuccess((ArrayList<InstitutionCredentials>) response);
+    }}

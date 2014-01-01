@@ -6,8 +6,7 @@ public class InstitutionResponseHandler extends BaseResponseHandler {
     public void onSuccess(Institution jsonObject) {}
 
     @Override
-    protected void handleSuccessMessage(Object response)
-    {
+    protected void handleSuccessMessage(Object response) {
         onSuccess((Institution) response);
     }
 }

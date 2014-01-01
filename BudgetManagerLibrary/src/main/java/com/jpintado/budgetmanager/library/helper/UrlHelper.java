@@ -52,6 +52,10 @@ public class UrlHelper {
         return getBaseUrl() + ofxPath + "/institution/credentials";
     }
 
+    public String getInstitutionListUrl() {
+        return getBaseUrl() + ofxPath + "/institution/list";
+    }
+
     public static class UrlHelperBuilder {
         private String protocol = PROTOCOL_HTTP;
         private final String host;

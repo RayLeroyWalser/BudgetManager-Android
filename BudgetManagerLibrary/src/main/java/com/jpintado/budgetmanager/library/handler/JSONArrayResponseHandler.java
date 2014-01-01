@@ -6,8 +6,7 @@ public class JSONArrayResponseHandler extends BaseResponseHandler {
     public void onSuccess(JSONArray jsonArray) {}
 
     @Override
-    protected void handleSuccessMessage(Object response)
-    {
+    protected void handleSuccessMessage(Object response) {
         onSuccess((JSONArray) response);
     }
 }

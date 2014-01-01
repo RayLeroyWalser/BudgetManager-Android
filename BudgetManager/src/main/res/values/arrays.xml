@@ -3,5 +3,7 @@
     <array name="planets_array">
         <item>Home</item>
         <item>Budget</item>
+        <item>Institutions</item>
+        <item>Accounts</item>
     </array>
 </resources>
