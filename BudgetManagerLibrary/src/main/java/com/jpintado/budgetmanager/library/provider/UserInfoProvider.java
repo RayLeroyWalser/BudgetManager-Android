@@ -15,4 +15,8 @@ public class UserInfoProvider {
     public String getPassword() {
         return password;
     }
+
+    public String getRsaPublic() {
+        return rsaPublic;
+    }
 }

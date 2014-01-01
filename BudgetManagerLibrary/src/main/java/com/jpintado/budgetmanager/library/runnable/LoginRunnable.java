@@ -1,18 +1,18 @@
 package com.jpintado.budgetmanager.library.runnable;
 
- import android.util.Base64;
+import android.util.Base64;
 
 import com.jpintado.budgetmanager.library.BMLibrary;
- import com.jpintado.budgetmanager.library.controller.ConnectionController;
- import com.jpintado.budgetmanager.library.crypto.AESCBC;
+import com.jpintado.budgetmanager.library.controller.ConnectionController;
+import com.jpintado.budgetmanager.library.crypto.AESCBC;
 import com.jpintado.budgetmanager.library.handler.StringResponseHandler;
- import com.jpintado.budgetmanager.library.util.CustomHttpResponse;
+import com.jpintado.budgetmanager.library.util.CustomHttpResponse;
 
- import org.apache.http.NameValuePair;
- import org.apache.http.message.BasicNameValuePair;
- import org.json.JSONObject;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
 
- import java.util.ArrayList;
+import java.util.ArrayList;
 
 public class LoginRunnable extends BaseRunnable implements Runnable {
 
@@ -48,6 +48,7 @@ public class LoginRunnable extends BaseRunnable implements Runnable {
             {
                 responseJSON = new JSONObject(response.getData());
                 BMLibrary.userInfoProvider.setRsaPublic(responseJSON.getString("rsa_public"));
+
                 BMLibrary.userInfoProvider.setPassword(password);
                 callbackSuccessResponse("", responseHandler);
             }

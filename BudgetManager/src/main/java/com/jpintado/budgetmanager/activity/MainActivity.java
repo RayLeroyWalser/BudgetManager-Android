@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 
+import com.jpintado.budgetmanager.fragments.AccountAddProcessFragment;
 import com.jpintado.budgetmanager.fragments.AccountListFragment;
 import com.jpintado.budgetmanager.fragments.InstitutionAddProcessFragment;
 import com.jpintado.budgetmanager.fragments.InstitutionListFragment;
@@ -71,7 +72,7 @@ public class MainActivity extends ActionBarActivity
                 return true;
             case R.id.action_add_account:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, InstitutionAddProcessFragment.newInstance())
+                        .replace(R.id.container, AccountAddProcessFragment.newInstance())
                         .addToBackStack(null)
                         .commit();
                 return true;

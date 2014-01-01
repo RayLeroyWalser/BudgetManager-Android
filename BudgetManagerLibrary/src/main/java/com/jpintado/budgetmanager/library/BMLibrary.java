@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.jpintado.budgetmanager.library.helper.UrlHelper;
 import com.jpintado.budgetmanager.library.manager.CredentialManager;
+import com.jpintado.budgetmanager.library.provider.AccountProvider;
 import com.jpintado.budgetmanager.library.provider.InstitutionProvider;
 import com.jpintado.budgetmanager.library.provider.UserInfoProvider;
 
@@ -27,6 +28,7 @@ public class BMLibrary {
     public static CredentialManager credentialManager;
     public static InstitutionProvider institutionProvider;
     public static UserInfoProvider userInfoProvider;
+    public static AccountProvider accountProvider;
     public static UrlHelper urlHelper;
     private static ExecutorService executorService;
 
@@ -34,6 +36,7 @@ public class BMLibrary {
         credentialManager = new CredentialManager();
         userInfoProvider = new UserInfoProvider();
         institutionProvider = new InstitutionProvider();
+        accountProvider = new AccountProvider();
 
         urlHelper = new UrlHelper.UrlHelperBuilder(BM_HOST)
                 .setProtocol(UrlHelper.PROTOCOL_HTTP)

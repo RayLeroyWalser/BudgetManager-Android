@@ -24,4 +24,5 @@ android {
 
 dependencies {
     compile 'com.google.code.gson:gson:2.2.+'
+    compile files('libs/scprov-jdk15.jar')
 }

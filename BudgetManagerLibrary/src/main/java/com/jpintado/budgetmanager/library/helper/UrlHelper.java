@@ -56,6 +56,10 @@ public class UrlHelper {
         return getBaseUrl() + ofxPath + "/institution/list";
     }
 
+    public String getAccountSearchUrl() {
+        return getBaseUrl() + ofxPath + "/account/search";
+    }
+
     public static class UrlHelperBuilder {
         private String protocol = PROTOCOL_HTTP;
         private final String host;
