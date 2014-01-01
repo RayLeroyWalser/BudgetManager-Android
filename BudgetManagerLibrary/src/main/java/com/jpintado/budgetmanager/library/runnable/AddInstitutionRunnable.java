@@ -2,6 +2,7 @@ package com.jpintado.budgetmanager.library.runnable;
 
 import com.jpintado.budgetmanager.library.BMLibrary;
 import com.jpintado.budgetmanager.library.controller.ConnectionController;
+import com.jpintado.budgetmanager.library.crypto.AESCBC;
 import com.jpintado.budgetmanager.library.handler.StringResponseHandler;
 import com.jpintado.budgetmanager.library.model.Institution;
 import com.jpintado.budgetmanager.library.util.CustomHttpResponse;
@@ -36,7 +37,7 @@ public class AddInstitutionRunnable extends BaseRunnable implements Runnable {
             params.add(new BasicNameValuePair("institution_url", institution.url));
             params.add(new BasicNameValuePair("institution_name", institution.name));
             params.add(new BasicNameValuePair("username", username));
-            params.add(new BasicNameValuePair("password", password));
+            params.add(new BasicNameValuePair("password", AESCBC.encrypt(BMLibrary.userInfoProvider.getPassword(), password)));
 
             CustomHttpResponse response = ConnectionController.executeHttpRequest(ConnectionController.METHOD_POST, BMLibrary.urlHelper.getInstitutionCredentialsUrl(), params);
             if (response.getResponseCode() == 200)

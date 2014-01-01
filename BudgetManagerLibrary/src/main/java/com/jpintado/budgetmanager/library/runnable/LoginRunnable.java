@@ -48,6 +48,7 @@ public class LoginRunnable extends BaseRunnable implements Runnable {
             {
                 responseJSON = new JSONObject(response.getData());
                 BMLibrary.userInfoProvider.setRsaPublic(responseJSON.getString("rsa_public"));
+                BMLibrary.userInfoProvider.setPassword(password);
                 callbackSuccessResponse("", responseHandler);
             }
             else

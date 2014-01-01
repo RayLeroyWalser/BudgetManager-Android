@@ -40,8 +40,8 @@ public class EntryActivity extends FragmentActivity
 
     @Override
     public void onRegistered() {
-        Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(mainActivityIntent);
+        LoginFragment loginFragment = LoginFragment.newInstance();
+        navigateTo(loginFragment);
     }
 
     @Override
