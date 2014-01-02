@@ -12,7 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import com.jpintado.budgetmanager.fragments.AccountAddProcessFragment;
 import com.jpintado.budgetmanager.fragments.AccountListFragment;
 import com.jpintado.budgetmanager.fragments.InstitutionAddProcessFragment;
-import com.jpintado.budgetmanager.fragments.InstitutionListFragment;
+import com.jpintado.budgetmanager.fragments.InstitutionsFragment;
 import com.jpintado.budgetmanager.fragments.NavigationDrawerFragment;
 import com.jpintado.budgetmanager.R;
 import com.jpintado.budgetmanager.fragments.BudgetFragment;
@@ -107,7 +107,7 @@ public class MainActivity extends ActionBarActivity
                 fragment = BudgetFragment.newInstance(position);
                 break;
             case 2:
-                fragment = InstitutionListFragment.newInstance(position);
+                fragment = InstitutionsFragment.newInstance(position);
                 break;
             case 3:
                 fragment = AccountListFragment.newInstance(position);

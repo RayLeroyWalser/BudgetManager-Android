@@ -2,7 +2,12 @@ package com.jpintado.budgetmanager.library.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Institution {
+import java.io.Serializable;
+
+public class Institution implements Serializable{
+
+    @SerializedName("fid")
+    public String fid;
 
     @SerializedName("id")
     public String id;

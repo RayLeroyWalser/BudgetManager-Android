@@ -9,12 +9,21 @@ import android.view.ViewGroup;
 import com.jpintado.budgetmanager.R;
 import com.jpintado.budgetmanager.library.model.InstitutionCredentials;
 
-public class AccountAddProcessFragment extends Fragment
+public class InstitutionsFragment extends Fragment
         implements InstitutionListFragment.InstitutionListFragmentCallbacks {
 
-    public static AccountAddProcessFragment newInstance() {
-        return new AccountAddProcessFragment();
+    private static final String ARG_SECTION_NUMBER = "bundle_position";
+
+    public static InstitutionsFragment newInstance(int position) {
+        InstitutionsFragment institutionsFragment = new InstitutionsFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putInt(ARG_SECTION_NUMBER, position);
+        institutionsFragment.setArguments(bundle);
+
+        return institutionsFragment;
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,8 +41,5 @@ public class AccountAddProcessFragment extends Fragment
 
     @Override
     public void onInstitutionItemClicked(InstitutionCredentials institutionCredentials) {
-        getChildFragmentManager().beginTransaction()
-                .replace(R.id.container, SearchAccountFragment.newInstance(institutionCredentials))
-                .commit();
     }
 }

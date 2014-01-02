@@ -32,7 +32,7 @@ public class AddInstitutionRunnable extends BaseRunnable implements Runnable {
             responseHandler.sendStartMessage();
 
             ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("institution_id", institution.id));
+            params.add(new BasicNameValuePair("institution_id", institution.fid));
             params.add(new BasicNameValuePair("institution_org", institution.org));
             params.add(new BasicNameValuePair("institution_url", institution.url));
             params.add(new BasicNameValuePair("institution_name", institution.name));

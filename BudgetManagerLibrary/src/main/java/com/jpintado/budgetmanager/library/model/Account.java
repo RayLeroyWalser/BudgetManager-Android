@@ -4,7 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class Account {
 
-    @SerializedName("refresh_url")
+    @SerializedName("type")
+    public String type;
+
+    @SerializedName("number")
     public String number;
 
     @SerializedName("description")

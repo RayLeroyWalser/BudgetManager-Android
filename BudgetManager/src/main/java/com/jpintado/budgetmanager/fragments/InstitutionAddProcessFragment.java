@@ -35,7 +35,7 @@ public class InstitutionAddProcessFragment extends Fragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_institution_add_process, container, false);
+        return inflater.inflate(R.layout.layout_frame_container, container, false);
     }
 
     @Override

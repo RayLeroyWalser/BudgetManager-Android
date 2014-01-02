@@ -24,8 +24,7 @@ public class GetInstitutionListRunnable extends BaseRunnable implements Runnable
             responseHandler.sendStartMessage();
 
             CustomHttpResponse response = ConnectionController.executeHttpRequest(ConnectionController.METHOD_GET, BMLibrary.urlHelper.getInstitutionListUrl(), null);
-            if (response.getResponseCode() == 200)
-            {
+            if (response.getResponseCode() == 200) {
                 JSONArray responseJSONArray = new JSONArray(response.getData());
                 ArrayList<InstitutionCredentials> accountArrayList = new ArrayList<InstitutionCredentials>();
                 Gson gson = new Gson();
