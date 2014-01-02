@@ -13,9 +13,13 @@ public class InstitutionAddProcessFragment extends Fragment
         implements SearchInstitutionFragment.SearchInstitutionFragmentCallbacks,
                    AddInstitutionFragment.AddInstitutionFragmentCallbacks {
 
+    //region Constants
     private static final String DEBUG_TAG = "[InstitutionAddProcessFragment]";
+    //endregion
 
+    //region Variables
     private InstitutionAddProcessFragmentCallbacks mCallbacks;
+    //endregion
 
     public static Fragment newInstance() {
         return new InstitutionAddProcessFragment();

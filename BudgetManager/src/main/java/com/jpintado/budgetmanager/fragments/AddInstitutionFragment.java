@@ -1,13 +1,16 @@
 package com.jpintado.budgetmanager.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jpintado.budgetmanager.R;
@@ -15,21 +18,26 @@ import com.jpintado.budgetmanager.library.BMLibrary;
 import com.jpintado.budgetmanager.library.handler.InstitutionResponseHandler;
 import com.jpintado.budgetmanager.library.handler.StringResponseHandler;
 import com.jpintado.budgetmanager.library.model.Institution;
+import com.jpintado.budgetmanager.util.EmptyEditorActionListener;
+import com.jpintado.budgetmanager.util.UIUtils;
 
 public class AddInstitutionFragment extends Fragment {
 
+    //region Constants
     private static final String BUNDLE_INSTITUTION_NAME = "bundle_institution_name";
     private static final String BUNDLE_INSTITUTION_ID = "bundle_institution_id";
     private String DEBUG_TAG = "[AddInstitutionFragment]";
+    //endregion
 
+    //region Variables
     private AddInstitutionFragmentCallbacks mCallbacks;
     private Institution institution;
     private Button addButton;
     private EditText usernameEditText;
     private EditText passwordEditText;
+    //endregion
 
-    private InstitutionResponseHandler institutionInfoResponseHandler = new InstitutionResponseHandler()
-    {
+    private InstitutionResponseHandler institutionInfoResponseHandler = new InstitutionResponseHandler() {
         @Override
         public void onStart() {
             super.onStart();
@@ -53,11 +61,11 @@ public class AddInstitutionFragment extends Fragment {
         }
     };
 
-    private StringResponseHandler addInstitutionResponseHandler = new StringResponseHandler()
-    {
+    private StringResponseHandler addInstitutionResponseHandler = new StringResponseHandler() {
         @Override
         public void onStart() {
             super.onStart();
+            UIUtils.showLoadingDialog(getChildFragmentManager(), getString(R.string.txt_adding));
         }
 
         @Override
@@ -69,24 +77,20 @@ public class AddInstitutionFragment extends Fragment {
         @Override
         public void onFailure(String message) {
             super.onFailure(message);
+            Toast.makeText(getActivity(), getString(R.string.msg_unable_add), Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onFinish() {
             super.onFinish();
+            UIUtils.dismissLoadingDialog(getChildFragmentManager());
         }
     };
 
     private View.OnClickListener addButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            String username = usernameEditText.getText().toString();
-            String password = passwordEditText.getText().toString();
-            if (username.length() != 0 && password.length() != 0) {
-                BMLibrary.institutionProvider.addInstitution(institution, username, password, addInstitutionResponseHandler);
-            } else {
-                Toast.makeText(getActivity(), getString(R.string.txt_invalid_fields_error), Toast.LENGTH_LONG).show();
-            }
+            formAction();
         }
     };
 
@@ -135,9 +139,36 @@ public class AddInstitutionFragment extends Fragment {
 
     private void setUpListeners() {
         addButton.setOnClickListener(addButtonClickListener);
+        usernameEditText.setOnEditorActionListener(new EmptyEditorActionListener(getActivity(), usernameEditText));
+        passwordEditText.setOnEditorActionListener(new CustomEmptyEditorActionListener(getActivity(), passwordEditText));
+    }
+
+    private void formAction() {
+        String username = usernameEditText.getText().toString();
+        String password = passwordEditText.getText().toString();
+        if (username.length() != 0 && password.length() != 0) {
+            BMLibrary.institutionProvider.addInstitution(institution, username, password, addInstitutionResponseHandler);
+        } else {
+            Toast.makeText(getActivity(), getString(R.string.txt_invalid_fields_error), Toast.LENGTH_LONG).show();
+        }
     }
 
     public static interface AddInstitutionFragmentCallbacks {
         void onInstitutionAdded();
+    }
+
+    private class CustomEmptyEditorActionListener extends EmptyEditorActionListener implements TextView.OnEditorActionListener {
+        public CustomEmptyEditorActionListener(Context context, EditText editText) {
+            super(context, editText);
+        }
+
+        @Override
+        public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+            if (!super.onEditorAction(textView, actionId, keyEvent)) {
+                formAction();
+                return false;
+            }
+            return true;
+        }
     }
 }

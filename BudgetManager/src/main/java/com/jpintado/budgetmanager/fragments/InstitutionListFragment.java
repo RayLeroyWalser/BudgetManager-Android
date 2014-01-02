@@ -8,26 +8,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.jpintado.budgetmanager.R;
 import com.jpintado.budgetmanager.adapter.InstitutionCredentialsAdapter;
 import com.jpintado.budgetmanager.library.BMLibrary;
 import com.jpintado.budgetmanager.library.handler.InstitutionCredentialsListResponseHandler;
 import com.jpintado.budgetmanager.library.model.InstitutionCredentials;
+import com.jpintado.budgetmanager.util.UIUtils;
 
 import java.util.ArrayList;
 
 public class InstitutionListFragment extends Fragment {
-
+    //region Constants
     private InstitutionListFragmentCallbacks mCallbacks;
     private ListView institutionListView;
     private InstitutionCredentialsAdapter institutionCredentialsAdapter;
     private ArrayList<InstitutionCredentials> institutionCredentialsArrayList = new ArrayList<InstitutionCredentials>();
+    //endregion
 
     private InstitutionCredentialsListResponseHandler institutionCredentialsListResponseHandler = new InstitutionCredentialsListResponseHandler() {
         @Override
         public void onStart() {
             super.onStart();
+            UIUtils.showLoadingDialog(getChildFragmentManager(), getString(R.string.txt_loading_institution_information));
         }
 
         @Override
@@ -41,11 +45,13 @@ public class InstitutionListFragment extends Fragment {
         @Override
         public void onFailure(String message) {
             super.onFailure(message);
+            Toast.makeText(getActivity(), getString(R.string.msg_unable_retrieve_institution_information), Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onFinish() {
             super.onFinish();
+            UIUtils.dismissLoadingDialog(getChildFragmentManager());
         }
     };
 

@@ -16,13 +16,16 @@ import com.jpintado.budgetmanager.library.model.Account;
 import java.util.ArrayList;
 
 public class AccountListFragment extends Fragment {
-
+    //region Constants
     private static final String BUNDLE_ARG_ACCOUNT_LIST = "bundle_arg_account_list";
+    //endregion
 
+    //region Variables
     private AccountListFragmentCallbacks mCallbacks;
     private ListView listView;
     private ArrayList<Account> accountArrayList;
     private AccountAdapter accountAdapter;
+    //endregion
 
     private AdapterView.OnItemClickListener listViewClickListener = new AdapterView.OnItemClickListener() {
         @Override

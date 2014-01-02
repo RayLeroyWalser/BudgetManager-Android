@@ -13,6 +13,12 @@
     <string name="msg_unable_login_error">Unable to Login. Please, check your credentials</string>
     <string name="msg_unable_process_information">Unable to process the information</string>
     <string name="msg_unable_register_error">Unable to register.</string>
+    <string name="msg_unable_retrieve_institutions">Unable to retrieve institutions</string>
+
+    <!-- Loading messages -->
+    <string name="txt_login">Login…</string>
+    <string name="txt_registering">Registering…</string>
+    <string name="txt_searching">Searching…</string>
 
     <!-- Main/Navigation Screen -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -34,5 +40,10 @@
     <!-- Add Institutions Screens -->
     <string name="hint_institution">Institution</string>
     <string name="btn_add_institution">Add Institution</string>
+    <string name="txt_adding">Adding...</string>
+    <string name="msg_unable_add">Unable to add</string>
+    <string name="txt_loading_institution_information">Loading Institution Information</string>
+    <string name="msg_unable_retrieve_institution_information">Unable to retrieve Institution information</string>
+    <string name="msg_unable_retrieve_accounts">Unable to retrieve accounts</string>
 
 </resources>

@@ -14,9 +14,13 @@ public class AccountAddProcessFragment extends Fragment
         implements InstitutionListFragment.InstitutionListFragmentCallbacks,
         SearchAccountFragment.SearchAccountFragmentCallbacks{
 
+    //region Constants
     private static final String DEBUG_TAG = "AccountAddProcessFragment";
+    //endregion
 
+    //region Variables
     private AccountAddProcessFragmentCallbacks mCallbacks;
+    //endregion
 
     public static AccountAddProcessFragment newInstance() {
         return new AccountAddProcessFragment();

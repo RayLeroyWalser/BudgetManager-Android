@@ -18,6 +18,7 @@ import com.jpintado.budgetmanager.library.handler.StringResponseHandler;
 import com.jpintado.budgetmanager.util.ConfirmPasswordEditorActionListener;
 import com.jpintado.budgetmanager.util.EmailEditorActionListener;
 import com.jpintado.budgetmanager.util.EmptyEditorActionListener;
+import com.jpintado.budgetmanager.util.UIUtils;
 
 public class RegistrationFragment extends Fragment {
 
@@ -50,6 +51,7 @@ public class RegistrationFragment extends Fragment {
         @Override
         public void onStart() {
             super.onStart();
+            UIUtils.showLoadingDialog(getChildFragmentManager(), getString(R.string.txt_registering));
         }
 
         @Override
@@ -68,6 +70,7 @@ public class RegistrationFragment extends Fragment {
         @Override
         public void onFinish() {
             super.onFinish();
+            UIUtils.dismissLoadingDialog(getChildFragmentManager());
         }
     };
     //endregion

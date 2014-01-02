@@ -17,6 +17,7 @@ import com.jpintado.budgetmanager.R;
 import com.jpintado.budgetmanager.library.BMLibrary;
 import com.jpintado.budgetmanager.library.handler.StringResponseHandler;
 import com.jpintado.budgetmanager.util.EmptyEditorActionListener;
+import com.jpintado.budgetmanager.util.UIUtils;
 
 public class LoginFragment extends Fragment {
 
@@ -47,6 +48,7 @@ public class LoginFragment extends Fragment {
         @Override
         public void onStart() {
             super.onStart();
+            UIUtils.showLoadingDialog(getChildFragmentManager(), getString(R.string.txt_login));
         }
 
         @Override
@@ -65,6 +67,7 @@ public class LoginFragment extends Fragment {
         @Override
         public void onFinish() {
             super.onFinish();
+            UIUtils.dismissLoadingDialog(getChildFragmentManager());
         }
     };
     //endregion
@@ -111,7 +114,6 @@ public class LoginFragment extends Fragment {
         passwordEditText.setOnEditorActionListener(new CustomEmptyEditorActionListener(getActivity(), passwordEditText));
     }
 
-
     private void formAction() {
         if (validFields()) {
             BMLibrary.credentialManager.login(
@@ -139,7 +141,6 @@ public class LoginFragment extends Fragment {
     }
 
     private class CustomEmptyEditorActionListener extends EmptyEditorActionListener implements TextView.OnEditorActionListener {
-
         public CustomEmptyEditorActionListener(Context context, EditText editText) {
             super(context, editText);
         }
