@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 
 import com.jpintado.budgetmanager.fragments.AccountAddProcessFragment;
-import com.jpintado.budgetmanager.fragments.AccountListFragment;
+import com.jpintado.budgetmanager.fragments.AccountsFragment;
 import com.jpintado.budgetmanager.fragments.InstitutionAddProcessFragment;
 import com.jpintado.budgetmanager.fragments.InstitutionsFragment;
 import com.jpintado.budgetmanager.fragments.NavigationDrawerFragment;
@@ -21,7 +21,8 @@ import com.jpintado.budgetmanager.fragments.SettingsFragment;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
-                   InstitutionAddProcessFragment.InstitutionAddProcessFragmentCallbacks {
+        InstitutionAddProcessFragment.InstitutionAddProcessFragmentCallbacks,
+        AccountAddProcessFragment.AccountAddProcessFragmentCallbacks {
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private String[] mPlanetTitles;
@@ -110,7 +111,7 @@ public class MainActivity extends ActionBarActivity
                 fragment = InstitutionsFragment.newInstance(position);
                 break;
             case 3:
-                fragment = AccountListFragment.newInstance(position);
+                fragment = AccountsFragment.newInstance(position);
                 break;
             default:
                 fragment = BudgetFragment.newInstance(position);
@@ -121,6 +122,13 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onInstitutionAdded(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction()
+                .remove(fragment)
+                .commit();
+    }
+
+    @Override
+    public void onAccountAdded(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
                 .remove(fragment)
                 .commit();

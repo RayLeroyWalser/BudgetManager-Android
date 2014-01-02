@@ -9,38 +9,10 @@ import android.view.ViewGroup;
 
 import com.jpintado.budgetmanager.activity.MainActivity;
 import com.jpintado.budgetmanager.R;
-import com.jpintado.budgetmanager.library.BMLibrary;
-import com.jpintado.budgetmanager.library.handler.AccountListResponseHandler;
-import com.jpintado.budgetmanager.library.model.Account;
-
-import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "bundle_position";
-
-    private AccountListResponseHandler accountListResponseHandler = new AccountListResponseHandler()
-    {
-        @Override
-        public void onStart() {
-            super.onStart();
-        }
-
-        @Override
-        public void onSuccess(ArrayList<Account> response) {
-            super.onSuccess(response);
-        }
-
-        @Override
-        public void onFailure(String message) {
-            super.onFailure(message);
-        }
-
-        @Override
-        public void onFinish() {
-            super.onFinish();
-        }
-    };
 
     public static HomeFragment newInstance(int position) {
         HomeFragment homeFragment = new HomeFragment();
@@ -70,7 +42,5 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        BMLibrary.institutionProvider.getAccountList(accountListResponseHandler);
     }
 }

@@ -8,7 +8,6 @@ import com.jpintado.budgetmanager.library.handler.JSONArrayResponseHandler;
 import com.jpintado.budgetmanager.library.handler.StringResponseHandler;
 import com.jpintado.budgetmanager.library.model.Institution;
 import com.jpintado.budgetmanager.library.runnable.AddInstitutionRunnable;
-import com.jpintado.budgetmanager.library.runnable.GetAccountListRunnable;
 import com.jpintado.budgetmanager.library.runnable.GetInstitutionInfoRunnable;
 import com.jpintado.budgetmanager.library.runnable.GetInstitutionListRunnable;
 import com.jpintado.budgetmanager.library.runnable.SearchInstitutionRunnable;
@@ -21,10 +20,6 @@ public class InstitutionProvider {
 
     public void getInstitutionInfo(String id, InstitutionResponseHandler responseHandler) {
         BMLibrary.executeRunnable(new GetInstitutionInfoRunnable(id, responseHandler));
-    }
-
-    public void getAccountList(BaseResponseHandler responseHandler) {
-        BMLibrary.executeRunnable(new GetAccountListRunnable(responseHandler));
     }
 
     public void addInstitution(Institution institution, String username, String password, StringResponseHandler responseHandler) {

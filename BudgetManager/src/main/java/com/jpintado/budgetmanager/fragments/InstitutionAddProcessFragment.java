@@ -30,7 +30,7 @@ public class InstitutionAddProcessFragment extends Fragment
         else if (activity instanceof InstitutionAddProcessFragmentCallbacks)
             mCallbacks = (InstitutionAddProcessFragmentCallbacks) activity;
         else
-            throw new ClassCastException(DEBUG_TAG + " Parent container must implement SearchInstitutionFragmentCallbacks");
+            throw new ClassCastException(DEBUG_TAG + " Parent container must implement InstitutionAddProcessFragmentCallbacks");
     }
 
     @Override

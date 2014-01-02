@@ -1,5 +1,6 @@
 package com.jpintado.budgetmanager.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,10 +11,27 @@ import com.jpintado.budgetmanager.R;
 import com.jpintado.budgetmanager.library.model.InstitutionCredentials;
 
 public class AccountAddProcessFragment extends Fragment
-        implements InstitutionListFragment.InstitutionListFragmentCallbacks {
+        implements InstitutionListFragment.InstitutionListFragmentCallbacks,
+        SearchAccountFragment.SearchAccountFragmentCallbacks{
+
+    private static final String DEBUG_TAG = "AccountAddProcessFragment";
+
+    private AccountAddProcessFragmentCallbacks mCallbacks;
 
     public static AccountAddProcessFragment newInstance() {
         return new AccountAddProcessFragment();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        if(getParentFragment() instanceof AccountAddProcessFragmentCallbacks)
+            mCallbacks = (AccountAddProcessFragmentCallbacks) getParentFragment();
+        else if (activity instanceof AccountAddProcessFragmentCallbacks)
+            mCallbacks = (AccountAddProcessFragmentCallbacks) activity;
+        else
+            throw new ClassCastException(DEBUG_TAG + " Parent container must implement AccountAddProcessFragmentCallbacks");
     }
 
     @Override
@@ -35,5 +53,14 @@ public class AccountAddProcessFragment extends Fragment
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.container, SearchAccountFragment.newInstance(institutionCredentials))
                 .commit();
+    }
+
+    @Override
+    public void onAccountAdded() {
+        mCallbacks.onAccountAdded(this);
+    }
+
+    public static interface AccountAddProcessFragmentCallbacks {
+        void onAccountAdded(Fragment fragment);
     }
 }

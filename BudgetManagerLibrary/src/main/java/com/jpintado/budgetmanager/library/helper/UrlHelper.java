@@ -60,6 +60,10 @@ public class UrlHelper {
         return getBaseUrl() + ofxPath + "/account/search";
     }
 
+    public String getAddAccountUrl() {
+        return getBaseUrl() + ofxPath + "/account/add";
+    }
+
     public static class UrlHelperBuilder {
         private String protocol = PROTOCOL_HTTP;
         private final String host;
