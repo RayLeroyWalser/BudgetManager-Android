@@ -46,8 +46,9 @@ public class EmailEditorActionListener extends EmptyEditorActionListener impleme
             } else {
                 editText.setError(null);
             }
+            return false;
         }
-        return false;
+        return true;
     }
 
     public boolean isValidEmail(String candidate) {

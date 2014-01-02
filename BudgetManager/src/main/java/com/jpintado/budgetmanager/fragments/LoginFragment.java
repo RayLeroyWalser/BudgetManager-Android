@@ -148,8 +148,9 @@ public class LoginFragment extends Fragment {
         public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
             if (!super.onEditorAction(textView, actionId, keyEvent)) {
                 formAction();
+                return false;
             }
-            return false;
+            return true;
         }
     }
 }

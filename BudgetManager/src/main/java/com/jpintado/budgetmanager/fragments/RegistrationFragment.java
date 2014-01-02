@@ -116,7 +116,7 @@ public class RegistrationFragment extends Fragment {
         registerButton.setOnClickListener(registerButtonClickListener);
         alreadyHasAccountTextView.setOnClickListener(alreadyHasAccountClickListener);
 
-        usernameEditText.setOnEditorActionListener(new EmailEditorActionListener(getActivity(), usernameEditText));
+        usernameEditText.setOnEditorActionListener(new EmptyEditorActionListener(getActivity(), usernameEditText));
         emailEditText.setOnEditorActionListener(new EmailEditorActionListener(getActivity(), emailEditText));
         passwordEditText.setOnEditorActionListener(new EmptyEditorActionListener(getActivity(), passwordEditText));
         confirmPasswordEditText.setOnEditorActionListener(new CustomConfirmPasswordEditorActionListener(getActivity(), confirmPasswordEditText, passwordEditText));
@@ -164,8 +164,9 @@ public class RegistrationFragment extends Fragment {
         public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
             if (!super.onEditorAction(textView, actionId, keyEvent)) {
                 formAction();
+                return false;
             }
-            return false;
+            return true;
         }
     }
 }
