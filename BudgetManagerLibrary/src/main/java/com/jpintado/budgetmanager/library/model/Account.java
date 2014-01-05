@@ -6,9 +6,10 @@ import com.google.gson.annotations.SerializedName;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Account {
+public class Account implements Serializable {
 
     @SerializedName("type")
     public String type;
@@ -21,9 +22,6 @@ public class Account {
 
     @SerializedName("institution")
     public Institution institution;
-
-    @SerializedName("institution_credentials")
-    public InstitutionCredentials institution_credentials;
 
     public ArrayList<NameValuePair> formAddPostParams() {
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();

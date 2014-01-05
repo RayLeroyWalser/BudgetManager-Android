@@ -51,6 +51,8 @@ public class AccountsFragment extends Fragment
 
     @Override
     public void onAccountClicked(Account account) {
-
+        getChildFragmentManager().beginTransaction()
+                .replace(R.id.container, AccountDetailFragment.newInstance(account))
+                .commit();
     }
 }

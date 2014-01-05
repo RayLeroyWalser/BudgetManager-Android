@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp">
+    <TextView
+        android:id="@+id/account_detail_institution_name_label_textView"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Institution:"
+        android:textStyle="bold"
+        android:textSize="16sp"/>
+    <TextView
+        android:id="@+id/account_detail_institution_name_textView"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_toRightOf="@id/account_detail_institution_name_label_textView"
+        android:layout_marginLeft="15dp"
+        android:text="Institution Name"
+        android:textSize="16sp"/>
+    <TextView
+        android:id="@+id/account_detail_description_label_textView"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/account_detail_institution_name_label_textView"
+        android:layout_marginTop="15dp"
+        android:text="Description:"
+        android:textStyle="bold"
+        android:textSize="16sp"/>
+    <TextView
+        android:id="@+id/account_detail_description_textView"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_toRightOf="@id/account_detail_description_label_textView"
+        android:layout_alignBaseline="@id/account_detail_description_label_textView"
+        android:layout_marginLeft="15dp"
+        android:text="Checking"
+        android:textSize="16sp"/>
+    <TextView
+        android:id="@+id/account_detail_number_label_textView"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/account_detail_description_label_textView"
+        android:layout_marginTop="15dp"
+        android:text="Number:"
+        android:textStyle="bold"
+        android:textSize="16sp"/>
+    <TextView
+        android:id="@+id/account_detail_number_textView"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_toRightOf="@id/account_detail_number_label_textView"
+        android:layout_alignBaseline="@id/account_detail_number_label_textView"
+        android:layout_marginLeft="15dp"
+        android:text="XXXX1234"
+        android:textSize="16sp"/>
+</RelativeLayout>
